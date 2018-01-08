@@ -25,9 +25,11 @@ table, th, td {
       	<br>
       	B&uacute;squeda: <input name="criterio" value="${criterio}"/><input type="button" onclick="javascript:busqueda()" value="Buscar"/>
       	<br>
+      	<br>
       	<table style="border-style: solid;">
       	<thead>
       		<tr>
+      			<th>Id</th>
       			<th>Nombre</th>
       			<th>Apellido1</th>
       			<th>Apellido2</th>
@@ -41,6 +43,7 @@ table, th, td {
       	<tbody>
       		<c:forEach items="${personas}" var="persona" varStatus="status">
       			<tr>
+      			<td><c:out value="${persona.id}"/></td>
       			<td><c:out value="${persona.nombre}"/></td>
       			<td><c:out value="${persona.apellido1}"/></td>
       			<td><c:out value="${persona.apellido2}"/></td>
@@ -72,6 +75,8 @@ table, th, td {
       	</c:if>
       	<br>
       	<br>
+      	Para cargar datos de manera automática:
+      	Genera 100 registros con datos "random" para pruebas.<br>
       	<input type="button" value="Cargar Personas (Auto)" onclick="javascript:cargar()"/><br>
                 
      </form>

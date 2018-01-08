@@ -11,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 
 @Entity
 public class Persona implements Serializable {
@@ -30,6 +31,7 @@ public class Persona implements Serializable {
 	
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
 	@JoinColumn(name = "persona_id")
+	@OrderBy("id ASC")
 	private Set<Telefono> telefonos;
 	
 	public int getId() {

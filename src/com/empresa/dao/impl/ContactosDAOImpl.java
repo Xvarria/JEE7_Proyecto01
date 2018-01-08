@@ -31,8 +31,9 @@ public class ContactosDAOImpl implements ContactosDAO {
 	public List<Persona> getAllPersona(String criterio) {
 	    String queryString = "Select p from Persona p ";
 	    if (StringUtils.isNotEmpty(criterio)){
-	    	queryString += " where lower(p.nombre) like :criterio or lower(p.apellido1) like :criterio or lower(p.apellido2) like :criterio";
+	    	queryString += " where lower(p.nombre) like :criterio or lower(p.apellido1) like :criterio or lower(p.apellido2) like :criterio ";
 	    }
+	    queryString += " order by  p.apellido1, p.apellido2, p.nombre";
 	    Query query = em.createQuery(queryString);
 	    if (StringUtils.isNotEmpty(criterio)){
 	    	query.setParameter("criterio", "%"+criterio.toLowerCase()+"%");
@@ -40,6 +41,7 @@ public class ContactosDAOImpl implements ContactosDAO {
 		return query.getResultList();
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Persona> getAllPersona(String criterio, int pagina, int regPorPagina) {
 	    String queryString = "Select p from Persona p ";
@@ -47,9 +49,11 @@ public class ContactosDAOImpl implements ContactosDAO {
 	    	queryString += " where lower(p.nombre) like :criterio or lower(p.apellido1) like :criterio or lower(p.apellido2) like :criterio";
 	    }
 	    Query query = em.createQuery(queryString);
+	    queryString += " order by  p.apellido1, p.apellido2, p.nombre";
 	    if (StringUtils.isNotEmpty(criterio)){
 	    	query.setParameter("criterio", "%"+criterio.toLowerCase()+"%");
 	    }
+	    
 	    int primer = ((pagina - 1) * regPorPagina);
 	    query.setFirstResult(primer);
 	    query.setMaxResults(regPorPagina);
