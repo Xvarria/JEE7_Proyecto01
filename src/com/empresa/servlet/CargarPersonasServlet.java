@@ -94,6 +94,7 @@ public class CargarPersonasServlet extends HttpServlet {
 				}
 			}
 		}
+		this.contactosDAO.flush();
 		request.setAttribute("accion", "Cargar persona");
 		request.setAttribute("mensaje", "Persona cargadas correctamente");
 		request.getRequestDispatcher("/exitoConMensaje.jsp").forward(request, response);		

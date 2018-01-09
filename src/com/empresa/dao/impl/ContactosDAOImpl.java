@@ -2,8 +2,9 @@ package com.empresa.dao.impl;
 
 import java.util.List;
 
-import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
+import javax.ejb.TransactionAttribute;
+import javax.ejb.TransactionAttributeType;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -13,17 +14,18 @@ import org.apache.commons.lang3.StringUtils;
 import com.empresa.dao.ContactosDAO;
 import com.empresa.model.Persona;
 
-//En la implementacion se define el tipo 
+
 @Stateless
-@LocalBean
 public class ContactosDAOImpl implements ContactosDAO {
 
 	@PersistenceContext(name="default")
 	private EntityManager em;
 
 	@Override
+	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
 	public void persist(Persona persona) {
 		em.persist(persona);
+		//throw new RuntimeException("Error rollback");//To test transacctions
 	}
 
 	@SuppressWarnings("unchecked")
@@ -108,4 +110,11 @@ public class ContactosDAOImpl implements ContactosDAO {
 	    Long registros = (Long)query.getSingleResult(); 
 		return registros.intValue();
 	}
+
+	@Override
+	public void flush() {
+		em.flush();
+	}
+	
+	
 }

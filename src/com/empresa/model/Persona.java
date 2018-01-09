@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
+import javax.validation.constraints.Size;
 
 @Entity
 public class Persona implements Serializable {
@@ -27,9 +28,10 @@ public class Persona implements Serializable {
 	private String nombre;
 	private String apellido1;
 	private String apellido2;
+	@Size(min = 5)
 	private String correo;
 	
-	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
 	@JoinColumn(name = "persona_id")
 	@OrderBy("id ASC")
 	private Set<Telefono> telefonos;

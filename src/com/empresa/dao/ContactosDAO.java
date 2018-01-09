@@ -2,11 +2,11 @@ package com.empresa.dao;
 
 import java.util.List;
 
-import javax.ejb.Remote;
+import javax.ejb.LocalBean;
 
 import com.empresa.model.Persona;
 
-@Remote //EN la interface se define el tipo de acceso local vs public
+@LocalBean
 public interface ContactosDAO {
 
 	public void persist(Persona persona);
@@ -24,4 +24,6 @@ public interface ContactosDAO {
 	public Persona getPersonaById(int id);
 	
 	public int cantidadRegistros(String criterio);
+	
+	public void flush();
 }
